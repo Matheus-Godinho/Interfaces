@@ -26,27 +26,36 @@ public class Program {
 			double totalValue;
 			
 		try {
+			System.out.printf("Enter contract data%n");
+			System.out.printf("Number: ");
 			number = sc.nextInt();
+			System.out.printf("Date (dd/MM/yyyy): ");
 			date = sdf.parse(sc.next());
+			System.out.printf("Contract value: ");
 			totalValue = sc.nextDouble();
 			contract = new Contract(number, date, totalValue);
 			
 			ContractProcessingService cps;
 				int months;
 				
+			System.out.printf("Enter number of installments: ");
 			months = sc.nextInt();
 			cps = new ContractProcessingService(months, new PaypalPaymentService());
 			cps.processingContract(contract);
 			
+			System.out.printf("Installments:%n");
 			for (Installment i: contract.getInstallments())
 				System.out.printf("%s%n", i.toString());
 			
 		}
+		catch (IllegalArgumentException e) {
+			System.out.printf("%s%n", e.getMessage());
+		}
 		catch (ParseException e) {
-			e.printStackTrace();
+			System.out.printf("Error in date. You must enter a date with the dd/MM/yyyy format%n");
 		}
 		catch (RuntimeException e) {
-			e.printStackTrace();
+			System.out.printf("Unexpected error%n");
 		}
 		
 		sc.close();

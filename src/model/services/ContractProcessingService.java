@@ -17,6 +17,9 @@ public class ContractProcessingService {
 	public ContractProcessingService() {
 	}
 	public ContractProcessingService(Integer months, PaymentService paymentService) {
+		if (!(months > 0))
+			throw new IllegalArgumentException("Error in number of installments. You must enter a number greater than zero");
+		
 		this.months = months;
 		this.paymentService = paymentService;
 	}

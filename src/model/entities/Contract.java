@@ -15,6 +15,9 @@ public class Contract {
 	public Contract() {
 	}
 	public Contract(Integer number, Date date, Double totalValue) {
+		if (!(totalValue >= 0.00))
+			throw new IllegalArgumentException("Error in contract value. You must enter a positive value");
+		
 		this.number = number;
 		this.date = date;
 		this.totalValue = totalValue;
