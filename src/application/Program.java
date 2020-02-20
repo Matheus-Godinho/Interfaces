@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import model.entities.Contract;
 import model.entities.Installment;
+import model.services.ContractProcessingService;
+import model.services.PaypalPaymentService;
 
 public class Program {
 	
@@ -29,9 +31,12 @@ public class Program {
 			totalValue = sc.nextDouble();
 			contract = new Contract(number, date, totalValue);
 			
-			contract.addInstallments(new Installment(sdf.parse("25/07/2018"), 206.04));
-			contract.addInstallments(new Installment(sdf.parse("25/08/2018"), 208.08));
-			contract.addInstallments(new Installment(sdf.parse("25/09/2018"), 210.12));
+			ContractProcessingService cps;
+				int months;
+				
+			months = sc.nextInt();
+			cps = new ContractProcessingService(months, new PaypalPaymentService());
+			cps.processingContract(contract);
 			
 			for (Installment i: contract.getInstallments())
 				System.out.printf("%s%n", i.toString());
